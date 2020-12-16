@@ -202,3 +202,4 @@ jobs:
           docker tag weaveworks/scope:$(./tools/image-tag) "quay.io/${QUAY_ORGANIZATION}/scope:$(./tools/image-tag)"
           docker push "quay.io/${QUAY_ORGANIZATION}/scope:$(./tools/image-tag)"
       - run: test -z "${UI_BUCKET_KEY_ID}" || (make BUILD_IN_CONTAINER=false ui-upload ui-pkg-upload)
+      
