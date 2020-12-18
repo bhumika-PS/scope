@@ -119,10 +119,9 @@ jobs:
   build:
     <<: *defaults
     steps:
+      - checkout
       - setup_remote_docker:
         version: 19.03.8
-      - checkout
-      - setup_remote_docker
       - attach_workspace:
           at: .
       - run: make BUILD_IN_CONTAINER=false SUDO= static all
