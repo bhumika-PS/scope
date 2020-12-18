@@ -119,6 +119,8 @@ jobs:
   build:
     <<: *defaults
     steps:
+      - setup_remote_docker:
+        version: 19.03.8
       - checkout
       - setup_remote_docker
       - attach_workspace:
@@ -136,8 +138,6 @@ jobs:
           - prog/staticui/
           - report/report.codecgen.go
           - render/detailed/detailed.codecgen.go
-      - setup_remote_docker:
-        version: 19.03.8
 
   integration-tests:
     machine:
