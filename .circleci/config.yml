@@ -181,7 +181,8 @@ jobs:
       IMAGES: scope cloud-agent
     steps:
       - checkout
-      - setup_remote_docker
+      - setup_remote_docker:
+          version: 19.03.8
       - attach_workspace:
           at: .
       - run: |
