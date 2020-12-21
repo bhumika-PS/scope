@@ -1,5 +1,6 @@
 version: 2
-
+machine:
+  image: ubuntu-2004:202010-01
 defaults: &defaults
   working_directory: /go/src/github.com/weaveworks/scope
   docker:
@@ -117,9 +118,7 @@ jobs:
       - run: GOOS=darwin make BUILD_IN_CONTAINER=false GO_BUILD_INSTALL_DEPS= prog/scope
 
   build:
-    <<: *defaults
-    machine:
-      image: ubuntu-2004:202010-01 
+    <<: *defaults 
     steps:
       - checkout
       - setup_remote_docker:
