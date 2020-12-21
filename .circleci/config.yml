@@ -1,8 +1,10 @@
 version: 2
 defaults: &defaults
   working_directory: /go/src/github.com/weaveworks/scope
-  docker:
-    - image: weaveworks/scope-backend-build:master-22aa742b
+  machine:
+    - image: ubuntu-2004:202010-01
+  #docker:
+   # - image: weaveworks/scope-backend-build:master-22aa742b
 
 client-defaults: &client-defaults
   working_directory: /home/weave/scope
@@ -117,8 +119,6 @@ jobs:
 
   build:
     <<: *defaults 
-    machine:
-      image: ubuntu-2004:202010-01
     steps:
       - checkout
       - setup_remote_docker
