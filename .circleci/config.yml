@@ -119,12 +119,12 @@ jobs:
   build:
     <<: *defaults
     machine:
-      image: ubuntu-2004:202010-01
-      docker_layer_caching: false 
+      image: ubuntu-2004:202010-01 
     steps:
       - checkout
       - setup_remote_docker:
           version: 19.03.8
+          docker_layer_caching: true
       - attach_workspace:
           at: .
       - run: make BUILD_IN_CONTAINER=false SUDO= static all
