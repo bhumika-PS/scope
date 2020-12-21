@@ -1,6 +1,4 @@
 version: 2
-machine:
-  image: ubuntu-2004:202010-01
 defaults: &defaults
   working_directory: /go/src/github.com/weaveworks/scope
   docker:
