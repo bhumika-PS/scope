@@ -122,6 +122,10 @@ jobs:
       - checkout
       - setup_remote_docker:
           version: 19.03.8
+      - run:
+        command: |
+          docker run --rm --privileged multiarch/qemu-user-static:register
+          docker build . # (w/ FROM from any arm like multiarch/ubuntu-core:arm64-xenial)
       - attach_workspace:
           at: .
       - run: make BUILD_IN_CONTAINER=false SUDO= static all
@@ -183,6 +187,10 @@ jobs:
       - checkout
       - setup_remote_docker:
           version: 19.03.8
+      - run:
+        command: |
+          docker run --rm --privileged multiarch/qemu-user-static:register
+          docker build . # (w/ FROM from any arm like multiarch/ubuntu-core:arm64-xenial)
       - attach_workspace:
           at: .
       - run: |
