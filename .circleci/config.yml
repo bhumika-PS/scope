@@ -118,7 +118,7 @@ jobs:
   build: 
     working_directory: 
       /go/src/github.com/weaveworks/scope
-      chmod -R 777 ./go/src/github.com/weaveworks/scope
+      chmod 777 ./go/src/github.com/weaveworks/scope
     machine:
       image: ubuntu-2004:202010-01
     steps:
