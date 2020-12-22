@@ -116,9 +116,8 @@ jobs:
       - run: GOOS=darwin make BUILD_IN_CONTAINER=false GO_BUILD_INSTALL_DEPS= prog/scope
 
   build: 
-    working_directory: 
-      /go/src/github.com/weaveworks/scope
-      chmod 777 ./go/src/github.com/weaveworks/scope
+    working_directory: /go/src/github.com/weaveworks/scope
+      #chmod 777 ./go/src/github.com/weaveworks/scope
     machine:
       image: ubuntu-2004:202010-01
     steps:
@@ -126,7 +125,7 @@ jobs:
       #- setup_remote_docker
       - attach_workspace:
           at: .
-      - run: make BUILD_IN_CONTAINER=false SUDO= static all
+      - run: SUDO make BUILD_IN_CONTAINER=false SUDO= static all
       - run: cd extras; make BUILD_IN_CONTAINER=false
       - run: make -C tools/runner
       - persist_to_workspace:
