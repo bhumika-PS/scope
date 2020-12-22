@@ -116,8 +116,9 @@ jobs:
       - run: GOOS=darwin make BUILD_IN_CONTAINER=false GO_BUILD_INSTALL_DEPS= prog/scope
 
   build: 
-    working_directory: /go/src/github.com/weaveworks/scope
-    chmod -R 777 ./go/src/github.com/weaveworks/scope
+    working_directory: 
+      /go/src/github.com/weaveworks/scope
+      chmod -R 777 ./go/src/github.com/weaveworks/scope
     machine:
       image: ubuntu-2004:202010-01
     steps:
