@@ -125,7 +125,7 @@ jobs:
       #- setup_remote_docker
       - attach_workspace:
           at: .
-      - run: SUDO make BUILD_IN_CONTAINER=false SUDO= static all
+      - run: make BUILD_IN_CONTAINER=false GO_BUILD_INSTALL_DEPS= prog/scope SUDO= static all
       - run: cd extras; make BUILD_IN_CONTAINER=false
       - run: make -C tools/runner
       - persist_to_workspace:
