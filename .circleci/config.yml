@@ -3,7 +3,7 @@ version: 2
 defaults: &defaults
   working_directory: /go/src/github.com/weaveworks/scope
   docker:
-    - image: bhumikapaharia10/scope_backend_test:latest
+    - image: weaveworks/scope-backend-build:master-22aa742b
 
 client-defaults: &client-defaults
   working_directory: /home/weave/scope
@@ -112,7 +112,7 @@ jobs:
     <<: *defaults
     steps:
       - checkout
-      - run: GOARCH=arm  make BUILD_IN_CONTAINER=false GO_BUILD_INSTALL_DEPS= prog/scope
+      - run: GOARCH=arm make BUILD_IN_CONTAINER=false GO_BUILD_INSTALL_DEPS= prog/scope
       - run: GOOS=darwin make BUILD_IN_CONTAINER=false GO_BUILD_INSTALL_DEPS= prog/scope
 
   build:
@@ -126,7 +126,7 @@ jobs:
       #    name: Activate QEMU
       #    command:
       #      docker run -it --rm --privileged multiarch/qemu-user-static --reset --credential yes --persistent yes
-      - run: make BUILD_IN_CONTAINER=false SUDO= static all
+      - run: GOARCH=arm make BUILD_IN_CONTAINER=false SUDO= static all
       #- run: cd extras; make BUILD_IN_CONTAINER=false
       #- run: make -C tools/runner
       #- persist_to_workspace:
