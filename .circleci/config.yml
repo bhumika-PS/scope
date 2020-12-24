@@ -126,7 +126,7 @@ jobs:
       #    name: Activate QEMU
       #    command:
       #      docker run -it --rm --privileged multiarch/qemu-user-static --reset --credential yes --persistent yes
-      - run: GOARCH=arm make BUILD_IN_CONTAINER=false SUDO= static all
+      - run: GOARCH=arm64 make BUILD_IN_CONTAINER=false SUDO= static all
       #- run: cd extras; make BUILD_IN_CONTAINER=false
       #- run: make -C tools/runner
       #- persist_to_workspace:
