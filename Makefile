@@ -32,7 +32,6 @@ GO_ENV+=CGO_ENABLED=1
 endif
 
 ifeq ($(GOARCH),arm64)
-apt-get install gcc
 ARM_CC=CC=/usr/bin/gcc-aarch64-linux-gnu
 endif
 
