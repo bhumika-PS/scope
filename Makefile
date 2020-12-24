@@ -31,8 +31,8 @@ ifeq ($(GOOS),linux)
 GO_ENV+=CGO_ENABLED=1
 endif
 
-ifeq ($(GOARCH),arm)
-ARM_CC=CC=/usr/bin/arm-linux-gnueabihf-gcc
+ifeq ($(GOARCH),arm64)
+ARM_CC=CC=/usr/bin/gcc-aarch64-linux-gnu
 endif
 
 GO=env $(GO_ENV) $(ARM_CC) go
