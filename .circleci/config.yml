@@ -127,7 +127,7 @@ jobs:
       #    command:
       #      docker run -it --rm --privileged multiarch/qemu-user-static --reset --credential yes --persistent yes
       #- run: apt-get install gcc-aarch64-linux-gnu
-      - run: make BUILD_IN_CONTAINER=false SUDO= static all
+      - run: GOARCH=arm64 make BUILD_IN_CONTAINER=false SUDO= static all
           
       #- run: cd extras; make BUILD_IN_CONTAINER=false
       #- run: make -C tools/runner
