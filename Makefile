@@ -32,7 +32,7 @@ GO_ENV+=CGO_ENABLED=1
 endif
 
 ifeq ($(GOARCH),arm64)
-ARM_CC=CC=/usr/bin/gcc-aarch64-linux-gnu
+ARM_CC=CC=gcc-aarch64-linux-gnu
 endif
 
 GO=env $(GO_ENV) $(ARM_CC) go
