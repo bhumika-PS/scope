@@ -66,17 +66,17 @@ docker/%: %
 	cp $* docker/
 
 %.tar: docker/Dockerfile.%
-	#mkdir -vp ~/.docker/cli-plugins/
-	#curl --silent -L "https://github.com/docker/buildx/releases/download/v0.4.2/buildx-v0.4.2.linux-amd64" > ~/.docker/cli-plugins/docker-buildx
-	#chmod a+x ~/.docker/cli-plugins/docker-buildx
-	#docker run --rm --privileged docker/binfmt:66f9012c56a8316f9244ffd7622d7c21c1f6f28d
-	#docker --version
-	#docker buildx version
-	#docker buildx create --use --name mybuilder
-	#$(SUDO) docker buildx build --platform linux/amd64,linux/arm64 --build-arg=revision=$(GIT_REVISION) -t $(DOCKERHUB_USER)/$* -f $< docker/
-	$(SUDO) docker build --build-arg=revision=$(GIT_REVISION) -t $(DOCKERHUB_USER)/$* -f $< docker/
-	$(SUDO) docker tag $(DOCKERHUB_USER)/$* $(DOCKERHUB_USER)/$*:$(IMAGE_TAG)
-	$(SUDO) docker save $(DOCKERHUB_USER)/$*:latest > $@
+	mkdir -vp ~/.docker/cli-plugins/
+	curl --silent -L "https://github.com/docker/buildx/releases/download/v0.4.2/buildx-v0.4.2.linux-amd64" > ~/.docker/cli-plugins/docker-buildx
+	chmod a+x ~/.docker/cli-plugins/docker-buildx
+	docker run --rm --privileged docker/binfmt:66f9012c56a8316f9244ffd7622d7c21c1f6f28d
+	docker --version
+	docker buildx version
+	docker buildx create --use --name mybuilder
+	$(SUDO) docker buildx build --platform linux/amd64,linux/arm64 --build-arg=revision=$(GIT_REVISION) -t $(DOCKERHUB_USER)/$* -f $< docker/
+	#$(SUDO) docker build --build-arg=revision=$(GIT_REVISION) -t $(DOCKERHUB_USER)/$* -f $< docker/
+	#$(SUDO) docker tag $(DOCKERHUB_USER)/$* $(DOCKERHUB_USER)/$*:$(IMAGE_TAG)
+	#$(SUDO) docker save $(DOCKERHUB_USER)/$*:latest > $@
 
 $(CLOUD_AGENT_EXPORT): docker/Dockerfile.cloud-agent docker/$(SCOPE_EXE) docker/weave docker/weaveutil
 
