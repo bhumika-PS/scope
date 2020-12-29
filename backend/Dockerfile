@@ -11,6 +11,10 @@ RUN set -eux; \
    \
    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
+RUN echo $arch_val
+RUN ls -l /usr/bin/arm-linux-gnueabihf-gcc
+RUN ls -l /usr/bin/gcc-aarch64-linux-gnu
+
 RUN go clean -i net && \
 	go install -tags netgo std && \
    export arch_val="$(dpkg --print-architecture)"; \
