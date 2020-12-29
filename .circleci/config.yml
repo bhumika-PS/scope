@@ -119,7 +119,8 @@ jobs:
     <<: *defaults
     steps:
       - checkout
-      - setup_remote_docker
+      - setup_remote_docker:
+          version: 18.06.0-ce
       - attach_workspace:
           at: .
       #- run:
@@ -185,7 +186,8 @@ jobs:
       IMAGES: scope cloud-agent
     steps:
       - checkout
-      - setup_remote_docker
+      - setup_remote_docker:
+          version: 18.06.0-ce
       - attach_workspace:
           at: .
       - run: |
