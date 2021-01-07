@@ -138,7 +138,7 @@ jobs:
       - persist_to_workspace:
           root: .
           paths:
-         - scope.tar
+          - scope.tar
           - cloud-agent.tar
           - tools/runner/runner
           - prog/externalui/
