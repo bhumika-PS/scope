@@ -8,7 +8,8 @@ SCOPE_EXPORT=scope.tar
 CLOUD_AGENT_EXPORT=cloud-agent.tar
 SCOPE_UI_BUILD_IMAGE=$(DOCKERHUB_USER)/scope-ui-build
 SCOPE_UI_BUILD_UPTODATE=.scope_ui_build.uptodate
-SCOPE_BACKEND_BUILD_IMAGE=bhumikapaharia10/b_scope_image_final1:latest
+SCOPE_BACKEND_BUILD_IMAGE=$(DOCKERHUB_USER)/scope-backend-build
+#bhumikapaharia10/b_scope_image_final1:latest
 #$(DOCKERHUB_USER)/scope-backend-build
 SCOPE_BACKEND_BUILD_UPTODATE=.scope_backend_build.uptodate
 SCOPE_VERSION=$(shell git rev-parse --short HEAD)
@@ -33,7 +34,8 @@ GO_ENV+=CGO_ENABLED=1
 endif
 
 ifeq ($(GOARCH),arm64)
-ARM_CC=CC=/usr/share/doc/gcc-aarch64-linux-gnu
+ARM_CC=CC=/usr/bin/arm-linux-gnueabihf-gcc
+#ARM_CC=CC=/usr/share/doc/gcc-aarch64-linux-gnu
 endif
 
 GO=env $(GO_ENV) $(ARM_CC) go
