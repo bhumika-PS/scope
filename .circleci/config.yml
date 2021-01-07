@@ -123,8 +123,8 @@ jobs:
         - curl -sSL https://s3.amazonaws.com/circle-downloads/install-circleci-docker.sh | bash -s -- 1.10.0
     steps:
       - checkout
-      - setup_remote_docker
-          #version: 1.10.3
+      - setup_remote_docker:
+          version: 19.03.8
           #18.06.0-ce
       - attach_workspace:
           at: .
