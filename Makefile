@@ -14,6 +14,7 @@ SCOPE_BACKEND_BUILD_IMAGE=$(DOCKERHUB_USER)/scope-backend-build
 SCOPE_BACKEND_BUILD_UPTODATE=.scope_backend_build.uptodate
 SCOPE_VERSION=$(shell git rev-parse --short HEAD)
 GIT_REVISION=$(shell git rev-parse HEAD)
+DOCKER_VERSION=1.10.3
 WEAVENET_VERSION=2.1.3
 RUNSVINIT=vendor/github.com/peterbourgon/runsvinit/runsvinit
 CODECGEN_DIR=vendor/github.com/ugorji/go/codec/codecgen
