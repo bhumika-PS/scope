@@ -11,11 +11,11 @@ RUN set -eux; \
    \
    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-RUN echo $arch_val
-RUN ls -l /usr/bin/arm-linux-gnueabihf-gcc
-RUN ls -l /usr/share/doc/gcc-aarch64-linux-gnu
+#RUN echo $arch_val
+#RUN ls -l /usr/bin/arm-linux-gnueabihf-gcc
+#RUN ls -l /usr/share/doc/gcc-aarch64-linux-gnu
 
-COPY /usr/share/doc/gcc-aarch64-linux-gnu /usr/bin
+#COPY /usr/share/doc/gcc-aarch64-linux-gnu /usr/bin
 
 RUN go clean -i net && \
 	go install -tags netgo std && \
