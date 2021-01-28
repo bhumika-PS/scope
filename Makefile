@@ -9,12 +9,9 @@ CLOUD_AGENT_EXPORT=cloud-agent.tar
 SCOPE_UI_BUILD_IMAGE=$(DOCKERHUB_USER)/scope-ui-build
 SCOPE_UI_BUILD_UPTODATE=.scope_ui_build.uptodate
 SCOPE_BACKEND_BUILD_IMAGE=$(DOCKERHUB_USER)/scope-backend-build
-#bhumikapaharia10/b_scope_image_final1:latest
-#$(DOCKERHUB_USER)/scope-backend-build
 SCOPE_BACKEND_BUILD_UPTODATE=.scope_backend_build.uptodate
 SCOPE_VERSION=$(shell git rev-parse --short HEAD)
 GIT_REVISION=$(shell git rev-parse HEAD)
-DOCKER_VERSION=19.03.8
 WEAVENET_VERSION=2.1.3
 RUNSVINIT=vendor/github.com/peterbourgon/runsvinit/runsvinit
 CODECGEN_DIR=vendor/github.com/ugorji/go/codec/codecgen
@@ -34,9 +31,8 @@ ifeq ($(GOOS),linux)
 GO_ENV+=CGO_ENABLED=1
 endif
 
-ifeq ($(GOARCH),arm64)
+ifeq ($(GOARCH),arm)
 ARM_CC=CC=/usr/bin/arm-linux-gnueabihf-gcc
-#ARM_CC=CC=/usr/share/doc/gcc-aarch64-linux-gnu
 endif
 
 GO=env $(GO_ENV) $(ARM_CC) go
@@ -70,14 +66,6 @@ docker/%: %
 	cp $* docker/
 
 %.tar: docker/Dockerfile.%
-	#mkdir -vp ~/.docker/cli-plugins/
-	#curl --silent -L "https://github.com/docker/buildx/releases/download/v0.4.2/buildx-v0.4.2.linux-amd64" > ~/.docker/cli-plugins/docker-buildx
-	#chmod a+x ~/.docker/cli-plugins/docker-buildx
-	#docker run --rm --privileged docker/binfmt:66f9012c56a8316f9244ffd7622d7c21c1f6f28d
-	#docker --version
-	#docker buildx version
-	#docker buildx create --use --name mybuilder
-	#$(SUDO) docker buildx build --platform linux/amd64,linux/arm64 --build-arg=revision=$(GIT_REVISION) -t $(DOCKERHUB_USER)/$* -f $< docker/
 	$(SUDO) docker build --build-arg=revision=$(GIT_REVISION) -t $(DOCKERHUB_USER)/$* -f $< docker/
 	$(SUDO) docker tag $(DOCKERHUB_USER)/$* $(DOCKERHUB_USER)/$*:$(IMAGE_TAG)
 	$(SUDO) docker save $(DOCKERHUB_USER)/$*:latest > $@
@@ -130,7 +118,7 @@ shell:
 tests: $(CODECGEN_TARGETS) prog/staticui/staticui.go prog/externalui/externalui.go
 	./tools/test -no-go-get -tags $(GO_BUILD_TAGS)
 
-lint:
+lint: prog/staticui/staticui.go prog/externalui/externalui.go 
 	./tools/lint
 
 prog/staticui/staticui.go:
@@ -290,7 +278,7 @@ realclean: clean
 		$(DOCKERHUB_USER)/scope $(DOCKERHUB_USER)/cloud-agent \
 		$(DOCKERHUB_USER)/scope:$(IMAGE_TAG) $(DOCKERHUB_USER)/cloud-agent:$(IMAGE_TAG) \
 		weaveworks/weaveexec:$(WEAVENET_VERSION) \
-		ubuntu:yakkety alpine:3.5 node:6.9.0 2>/dev/null || true
+		ubuntu:bionic alpine:3.11 node:6.9.0 2>/dev/null || true
 
 # Dependencies are intentionally build without enforcing any tags
 # since they are build on the host
