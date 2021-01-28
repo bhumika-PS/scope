@@ -26,9 +26,9 @@ workflows:
       - build:
           requires:
             - client-build
-      - publish:
-          requires:
-              -build
+      #- publish:
+      #    requires:
+      #        -build
       - integration-tests:
           requires:
             - lint
