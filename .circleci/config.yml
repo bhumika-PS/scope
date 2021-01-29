@@ -12,6 +12,10 @@ client-defaults: &client-defaults
 
 workflows:
   version: 2
+  build_and_publish:
+    jobs:
+      - build
+      - publish
   test_and_deploy:
     jobs:
       - lint
@@ -26,7 +30,6 @@ workflows:
       - build:
           requires:
             - client-build
-      - publish
       - integration-tests:
           requires:
             - lint
