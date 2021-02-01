@@ -152,7 +152,11 @@ jobs:
       - run: docker run -it --rm --privileged tonistiigi/binfmt --install all
       - run: docker buildx create --use --name mybuilder
       - run: ls
-      - run: pwd
+      - run:
+          name: Activate QEMU
+          command:
+            sudo docker run -it --rm --privileged multiarch/qemu-user-static --reset --credential yes --persistent yes
+      - run: docker run --rm -t arm64v8/ubuntu uname -m
       - run: |
           docker buildx build --push --platform linux/arm64,linux/amd64 -t bhumikapaharia10/scope_image:${CIRCLE_BRANCH} -t bhumikapaharia10/scope_image:latest -f docker/Dockerfile.scope .
   integration-tests:
