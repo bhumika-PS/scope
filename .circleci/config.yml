@@ -151,6 +151,8 @@ jobs:
       - run: docker login -u bhumikapaharia10 -p Root123!@#
       - run: docker run -it --rm --privileged tonistiigi/binfmt --install all
       - run: docker buildx create --use --name mybuilder
+      - run: ls
+      - run: pwd
       - run: |
           docker buildx build --push --platform linux/arm64,linux/amd64 -t bhumikapaharia10/scope_image:${CIRCLE_BRANCH} -t bhumikapaharia10/scope_image:latest .
 
