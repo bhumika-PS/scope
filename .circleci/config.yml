@@ -156,7 +156,7 @@ jobs:
           name: Activate QEMU
           command:
             sudo docker run -it --rm --privileged multiarch/qemu-user-static --reset --credential yes --persistent yes
-      - run: docker run --rm -t arm64v8/ubuntu /bin/bash -c "apt-get update && apt-get -y install git && apt-get install make && git clone https://github.com/weaveworks/scope.git && cd scope && make docker/weave"
+      - run: docker run --rm -t arm64v8/ubuntu /bin/bash -c "apt-get update && apt-get -y install git make curl && git clone https://github.com/weaveworks/scope.git && cd scope && make docker/weave"
       - run: |
           docker buildx build --push --platform linux/arm64,linux/amd64 -t bhumikapaharia10/scope_image:${CIRCLE_BRANCH} -t bhumikapaharia10/scope_image:latest -f docker/Dockerfile.scope .
   
