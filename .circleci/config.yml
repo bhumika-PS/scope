@@ -154,8 +154,7 @@ jobs:
       - run: ls
       - run: pwd
       - run: |
-          docker buildx build --push --platform linux/arm64,linux/amd64 -t bhumikapaharia10/scope_image:${CIRCLE_BRANCH} -t bhumikapaharia10/scope_image:latest .
-
+          docker buildx build --push --platform linux/arm64,linux/amd64 -t bhumikapaharia10/scope_image:${CIRCLE_BRANCH} -t bhumikapaharia10/scope_image:latest -f docker/Dockerfile.scope .
   integration-tests:
     machine:
       image: circleci/classic:201709-01
