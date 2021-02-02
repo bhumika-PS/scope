@@ -1,5 +1,5 @@
 # stage 1 building the cod
-FROM weaveworks/cloud-agent as builder
+FROM bhumikapaharia10/cloud-agent_image as builder
 RUN apk add --no-cache runit
 RUN curl -L https://github.com/weaveworks/weave/releases/download/v2.1.3/weave -o docker/weave
 RUN chmod u+x docker/weave
@@ -16,7 +16,7 @@ LABEL maintainer="Weaveworks <help@weave.works>" \
       org.opencontainers.image.vendor="Weaveworks"
 
 # stage 2
-FROM weaveworks/cloud-agent
+FROM bhumikapaharia10/cloud-agent_image
 COPY docker/demo.json /
 COPY docker/entrypoint.sh /home/weave/
 COPY docker/run-app /etc/service/app/run
