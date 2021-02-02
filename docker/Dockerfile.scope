@@ -15,7 +15,7 @@ LABEL maintainer="Weaveworks <help@weave.works>" \
 # stage 2
 FROM weaveworks/cloud-agent
 COPY docker/demo.json /
-COPY ./runsvinit ./entrypoint.sh /home/weave/
+COPY docker/runsvinit docker/entrypoint.sh /home/weave/
 COPY docker/run-app /etc/service/app/run
 COPY docker/run-probe /etc/service/probe/run
 EXPOSE 4040
