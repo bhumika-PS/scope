@@ -1,10 +1,23 @@
-FROM weaveworks/cloud-agent
+# stage 1 building the cod
+FROM weaveworks/cloud-agent as builder
 RUN apk add --no-cache runit
-COPY ./demo.json /
-COPY ./weave ./weaveutil /usr/bin/
+RUN curl -L https://github.com/weaveworks/weave/releases/download/v$(WEAVENET_VERSION)/weave -o docker/weave
+RUN docker run --rm  --entrypoint=cat weaveworks/weaveexec:$(WEAVENET_VERSION) /usr/bin/weaveutil > docker
+COPY /weave ./weaveutil /usr/bin/
+
+ARG revision
+LABEL maintainer="Weaveworks <help@weave.works>" \
+      org.opencontainers.image.title="scope" \
+      org.opencontainers.image.source="https://github.com/weaveworks/scope" \
+      org.opencontainers.image.revision="${revision}" \
+      org.opencontainers.image.vendor="Weaveworks"
+
+# stage 2
+FROM weaveworks/cloud-agent
+COPY docker/demo.json /
 COPY ./runsvinit ./entrypoint.sh /home/weave/
-COPY ./run-app /etc/service/app/run
-COPY ./run-probe /etc/service/probe/run
+COPY docker/run-app /etc/service/app/run
+COPY docker/run-probe /etc/service/probe/run
 EXPOSE 4040
 ENTRYPOINT ["/home/weave/entrypoint.sh"]
 
