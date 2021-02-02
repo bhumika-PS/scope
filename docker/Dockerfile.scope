@@ -2,6 +2,7 @@
 FROM weaveworks/cloud-agent as builder
 RUN apk add --no-cache runit
 RUN curl -L https://github.com/weaveworks/weave/releases/download/v2.1.3/weave -o docker/weave
+RUN chmod u+x docker/weave
 RUN docker run --rm  --entrypoint=cat weaveworks/weaveexec:2.1.3 /usr/bin/weaveutil > docker
 COPY /weave ./weaveutil /usr/bin/
 RUN Go build -mod vendor -ldflags "-extldflags \"-static\" -X main.version=$(shell git rev-parse --short HEAD) -s -w" -tags 'netgo unsafe') -o $@ ./$(@D)
