@@ -14,7 +14,7 @@ FROM bhumikapaharia10/cloud-agent_image
 COPY --from=builder docker/weave /usr/bin/
 COPY --from=builder docker/weaveutil /usr/bin/
 COPY docker/demo.json /
-COPY --from=builder docker/runsvinit /home/weave/
+COPY ./runsvinit /home/weave/
 COPY docker/entrypoint.sh /home/weave/
 COPY docker/run-app /etc/service/app/run
 COPY docker/run-probe /etc/service/probe/run
