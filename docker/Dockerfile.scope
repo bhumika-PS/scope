@@ -9,6 +9,13 @@ RUN docker run --rm  --entrypoint=cat weaveworks/weaveexec:2.1.3 /usr/bin/weaveu
 RUN Go build -mod vendor -ldflags "-extldflags \"-static\" -X main.version=$(shell git rev-parse --short HEAD) -s -w" -tags 'netgo unsafe') -o $@ ./$(@D)
 #COPY ./runsvinit /home/weave/
 
+ARG revision
+LABEL maintainer="Weaveworks <help@weave.works>" \
+      org.opencontainers.image.title="scope" \
+      org.opencontainers.image.source="https://github.com/weaveworks/scope" \
+      org.opencontainers.image.revision="${revision}" \
+      org.opencontainers.image.vendor="Weaveworks"
+
 # stage 2
 FROM bhumikapaharia10/cloud-agent_image
 COPY ./weave ./weaveutil /usr/bin/
