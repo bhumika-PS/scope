@@ -11,7 +11,8 @@ RUN Go build -mod vendor -ldflags "-extldflags \"-static\" -X main.version=$(she
 
 # stage 2
 FROM bhumikapaharia10/cloud-agent_image
-COPY docker/weave docker/weaveutil /usr/bin/
+COPY --from=builder docker/weave /usr/bin/
+COPY --from=builder docker/weaveutil /usr/bin/
 COPY docker/demo.json /
 COPY ./runsvinit docker/entrypoint.sh /home/weave/
 COPY docker/run-app /etc/service/app/run
