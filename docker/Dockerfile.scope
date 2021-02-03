@@ -6,7 +6,7 @@ RUN curl -L https://github.com/weaveworks/weave/releases/download/v2.1.3/weave -
 RUN chmod u+x docker/weave
 RUN docker run --rm  --entrypoint=cat weaveworks/weaveexec:2.1.3 /usr/bin/weaveutil > docker
 #COPY /weave ./weaveutil /usr/bin/
-RUN Go build -mod vendor -ldflags "-extldflags \"-static\" -X main.version=$(shell git rev-parse --short HEAD) -s -w" -tags 'netgo unsafe') -o $@ ./$(@D)
+RUN Go build -mod vendor -ldflags "-extldflags \"-static\" -X main.version=$(shell git rev-parse --short HEAD) -s -w" -tags 'netgo unsafe') -o docker/runsvinit
 #COPY ./runsvinit /home/weave/
 
 # stage 2
@@ -14,7 +14,7 @@ FROM bhumikapaharia10/cloud-agent_image
 COPY --from=builder docker/weave /usr/bin/
 COPY --from=builder docker/weaveutil /usr/bin/
 COPY docker/demo.json /
-COPY ./runsvinit /home/weave/
+COPY --from=builder docker/runsvinit /home/weave/
 COPY docker/entrypoint.sh /home/weave/
 COPY docker/run-app /etc/service/app/run
 COPY docker/run-probe /etc/service/probe/run
