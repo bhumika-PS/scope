@@ -152,10 +152,10 @@ jobs:
       - run: docker run -it --rm --privileged tonistiigi/binfmt --install all
       - run: docker buildx create --use --name mybuilder
       #- run: ls
-      #- run:
-      #    name: Activate QEMU
-      #    command:
-      #      sudo docker run -it --rm --privileged multiarch/qemu-user-static --reset --credential yes --persistent yes
+      - run:
+          name: Activate QEMU
+          command:
+            sudo docker run -it --rm --privileged multiarch/qemu-user-static --reset --credential yes --persistent yes
       #- run: docker run --rm -t arm64v8/ubuntu /bin/bash -c "apt-get update && apt-get -y install git && apt-get -y install make && apt-get -y install curl && git clone https://github.com/weaveworks/scope.git && cd scope && make docker/weave"
       - run: |
           docker buildx build --push --platform linux/arm64,linux/amd64 -t bhumikapaharia10/cloud-agent_image:${CIRCLE_BRANCH} -t bhumikapaharia10/cloud-agent_image:latest -f docker/Dockerfile.cloud-agent .
